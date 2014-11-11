@@ -16,12 +16,6 @@ Game.prototype.togglePlayer = function () {
   this.curPlayer = (this.curPlayer === 'x') ? 'o' : 'x';
 };
 
-Game.prototype.print = function () {
-  console.log(this.board.grid[0]);
-  console.log(this.board.grid[1]);
-  console.log(this.board.grid[2]);
-};
-
 Game.prototype.promptMove = function (callback) {
   var game = this;
   
@@ -42,7 +36,7 @@ Game.prototype.promptMove = function (callback) {
 
 Game.prototype.run = function (callback) {
   var game = this;
-  this.print();
+  this.board.print();
   this.promptMove(function (pos) {
     game.board.move(pos, game.curPlayer);
     game.togglePlayer();
@@ -56,6 +50,8 @@ Game.prototype.startGame = function (func) {
   
   function loopStep() {
     if (game.board.hasWon()) {
+      game.board.print();
+      console.log("Congrats " + game.curPlayer + ", you won!");
       return func();
     } else {
       game.run(loopStep);
@@ -66,8 +62,7 @@ Game.prototype.startGame = function (func) {
 };
 
 var completionCallback = function () {
-  this.board.print();
-  console.log("Congrats " + this.curPlayer + ", you won!");
+
   reader.close();
 };
 

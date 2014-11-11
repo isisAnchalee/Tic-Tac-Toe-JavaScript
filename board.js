@@ -8,6 +8,13 @@ function Board () {
 }
 
 
+Board.prototype.print = function () {
+  console.log(this.grid[0]);
+  console.log(this.grid[1]);
+  console.log(this.grid[2]);
+};
+
+
 Board.prototype.checkWinner = function () {
   var posSeqs = [
     // horizontals
